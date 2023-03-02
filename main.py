@@ -2,10 +2,14 @@ from flask import Flask, render_template, request, redirect
 
 from BisLog.BisLog import BisLog
 from DataBase.DB import DataBase
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 my_app = Flask(__name__)
 
-db = DataBase("notebook", "postgres", "190687", "127.0.0.1", "5432")
+db = DataBase(os.getenv("POSTGRES_DB"), os.getenv("POSTGRES_USER"),os.getenv("POSTGRES_PASSWORD"), os.getenv("POSTGRES_HOST"), os.getenv("POSTGRES_PORT"))
 connect = db.connect()
 bislog = BisLog(connect)
 
